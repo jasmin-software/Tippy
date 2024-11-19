@@ -1,0 +1,69 @@
+# Built application files
+*.apk
+*.ap_ 
+*.aab
+
+# Gradle files
+.gradle/
+build/
+*/build/
+
+# Local configuration files
+local.properties
+.idea/
+*.iml
+.gradle
+
+# Android Studio specific files
+.idea/
+*.ipr
+*.iws
+
+# User-specific configuration files
+*.log
+*.swp
+*.swo
+
+# Keystore files (you should never commit these to version control)
+*.jks
+*.keystore
+
+# Android Studio caches
+*.hprof
+*.apk
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
+# JetBrains IDEs specific files
+.idea/
+*.iws
+*.iml
+out/
+*.swp
+
+# Kotlin specific
+# Kotlin incremental build directory
+.kapt/
+build/
+
+# Lint and generated files
+lint/intermediates/
+lint/report/
+
+# Gradle Wrapper files
+gradle/wrapper/gradle-wrapper.jar
+
+# Ignore Gradle wrapper files
+gradle-wrapper.properties
+
+# Ignore Android-specific logs (if relevant)
+*.log
+
+# Ignore coverage folder
+coverage/
+
+# Ignore output of tests
+test_output/
+ 
