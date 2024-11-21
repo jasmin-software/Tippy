@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tvBase"
         app:layout_constraintTop_toBottomOf="@+id/tvBase"
         tools:text="24%" />
@@ -59,6 +60,7 @@
         android:ems="8"
         android:hint="Bill Amount"
         android:inputType="numberDecimal"
+        android:maxLength="8"
         app:layout_constraintBottom_toBottomOf="@+id/tvBase"
         app:layout_constraintStart_toEndOf="@+id/tvBase"
         app:layout_constraintTop_toTopOf="@+id/tvBase" />
@@ -68,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvTip"
         app:layout_constraintStart_toEndOf="@+id/tvTip"
         app:layout_constraintTop_toTopOf="@+id/tvTip"
@@ -78,13 +81,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvTotal"
         app:layout_constraintStart_toEndOf="@+id/tvTotal"
         app:layout_constraintTop_toTopOf="@+id/tvTotal"
         tools:text="103.11" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/seekBarTip"
         android:layout_width="200dp"
         android:layout_height="18dp"
         android:layout_marginStart="32dp"
