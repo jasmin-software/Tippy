@@ -35,7 +35,7 @@
         android:id="@+id/tvTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="56dp"
         android:text="Tip"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/tvTipPergentage"
@@ -57,7 +57,6 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
-        android:ems="8"
         android:hint="Bill Amount"
         android:inputType="numberDecimal"
         android:maxLength="8"
@@ -110,5 +109,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
+
+    <TextView
+        android:id="@+id/tvTipLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Good"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/seekBarTip"
+        app:layout_constraintStart_toStartOf="@+id/seekBarTip"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarTip" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

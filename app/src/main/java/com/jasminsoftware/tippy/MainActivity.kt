@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var seekBarTip: SeekBar
     private lateinit var tvTipCalculated: TextView
     private lateinit var tvTotalCalculated: TextView
-    private lateinit var tvTipPergentage: TextView
+    private lateinit var tvTipPercentage: TextView
+    private lateinit var tvTipLabel: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,18 +36,20 @@ class MainActivity : AppCompatActivity() {
         seekBarTip = findViewById(R.id.seekBarTip)
         tvTipCalculated = findViewById(R.id.tvTipCalculated)
         tvTotalCalculated = findViewById(R.id.tvTotalCalculated)
-        tvTipPergentage = findViewById(R.id.tvTipPergentage)
+        tvTipPercentage = findViewById(R.id.tvTipPergentage)
+        tvTipLabel = findViewById(R.id.tvTipLabel)
 
-        tvTipPergentage.text = "$INITIAL_PERCENTAGE%"
+        tvTipPercentage.text = "$INITIAL_PERCENTAGE%"
         seekBarTip.progress = INITIAL_PERCENTAGE
-
+        updateTipLabel(INITIAL_PERCENTAGE)
         seekBarTip.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
                 seekBar: SeekBar?,
                 progress: Int,
                 fromUser: Boolean
             ) {
-                tvTipPergentage.text = "$progress%"
+                tvTipPercentage.text = "$progress%"
+                updateTipLabel(progress)
                 calculateTipAndTotal()
             }
 
@@ -73,25 +76,47 @@ class MainActivity : AppCompatActivity() {
             ) {
                 Log.i(TAG, "amount entered: ${s.toString()}")
                 calculateTipAndTotal()
-                // TODO: only allow 2 decimal digits
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString()
+                if (text.contains(".")) {
+                    val parts = text.split(".")
+                    if (parts.size == 2 && parts[1].length > 2) {
+                        // Limit to 2 decimal places
+                        etBase.setText(parts[0] + "." + parts[1].take(2))
+                        etBase.setSelection(etBase.text.length)
+                    }
+                }
+            }
         })
     }
 
     private fun calculateTipAndTotal() {
-        if (etBase.text.isNotEmpty()) {
-            val baseAmount = etBase.text.toString().toDouble()
-            val tipPercent = seekBarTip.progress
-
-            val tipAmount = baseAmount * tipPercent / 100
-            val totalAmount = baseAmount + tipAmount
-
-            // TODO: round to 2 decimal place
-            tvTipCalculated.text = tipAmount.toString()
-            tvTotalCalculated.text = totalAmount.toString()
+        if (etBase.text.isEmpty()) {
+            tvTipCalculated.text = ""
+            tvTotalCalculated.text = ""
+            return
         }
+        val baseAmount = etBase.text.toString().toDouble()
+        val tipPercent = seekBarTip.progress
 
+        val tipAmount = baseAmount * tipPercent / 100
+        val totalAmount = baseAmount + tipAmount
+
+        tvTipCalculated.text = "%.2f".format(tipAmount)
+        tvTotalCalculated.text = "%.2f".format(totalAmount)
+    }
+
+    private fun updateTipLabel(int: Int) {
+        val tipLabel = when (int) {
+            in 0..9 -> "Poor"
+            in 10.. 14 -> "Ok"
+            in 15..19 -> "Good"
+            in 20..24 -> "Great"
+            else -> "Amazing"
+        }
+        tvTipLabel.text = tipLabel
+        // TODO: update text color according to label
     }
 }
