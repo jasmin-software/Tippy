@@ -9,8 +9,10 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.vectordrawable.graphics.drawable.ArgbEvaluator
 
 const val TAG = "MainActivity"
 const val INITIAL_PERCENTAGE = 15
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvTotalCalculated: TextView
     private lateinit var tvTipPercentage: TextView
     private lateinit var tvTipLabel: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         tvTotalCalculated = findViewById(R.id.tvTotalCalculated)
         tvTipPercentage = findViewById(R.id.tvTipPergentage)
         tvTipLabel = findViewById(R.id.tvTipLabel)
+
+
 
         tvTipPercentage.text = "$INITIAL_PERCENTAGE%"
         seekBarTip.progress = INITIAL_PERCENTAGE
@@ -56,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-
         })
 
         etBase.addTextChangedListener(object : TextWatcher {
@@ -98,6 +102,7 @@ class MainActivity : AppCompatActivity() {
             tvTotalCalculated.text = ""
             return
         }
+
         val baseAmount = etBase.text.toString().toDouble()
         val tipPercent = seekBarTip.progress
 
@@ -108,15 +113,23 @@ class MainActivity : AppCompatActivity() {
         tvTotalCalculated.text = "%.2f".format(totalAmount)
     }
 
-    private fun updateTipLabel(int: Int) {
-        val tipLabel = when (int) {
+    private fun updateTipLabel(tipPercent: Int) {
+        val tipLabel = when (tipPercent) {
             in 0..9 -> "Poor"
-            in 10.. 14 -> "Ok"
+            in 10..14 -> "Ok"
             in 15..19 -> "Good"
             in 20..24 -> "Great"
             else -> "Amazing"
         }
         tvTipLabel.text = tipLabel
-        // TODO: update text color according to label
+        val labelColor = ArgbEvaluator().evaluate(
+            tipPercent.toFloat()/seekBarTip.max,
+            ContextCompat.getColor(this, R.color.worst_tip),
+            ContextCompat.getColor(this, R.color.best_tip)
+        ) as Int
+        tvTipLabel.setTextColor(labelColor)
     }
+
+
+
 }
