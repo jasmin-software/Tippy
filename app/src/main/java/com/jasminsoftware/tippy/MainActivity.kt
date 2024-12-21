@@ -42,8 +42,6 @@ class MainActivity : AppCompatActivity() {
         tvTipPercentage = findViewById(R.id.tvTipPergentage)
         tvTipLabel = findViewById(R.id.tvTipLabel)
 
-
-
         tvTipPercentage.text = "$INITIAL_PERCENTAGE%"
         seekBarTip.progress = INITIAL_PERCENTAGE
         updateTipLabel(INITIAL_PERCENTAGE)
@@ -123,13 +121,10 @@ class MainActivity : AppCompatActivity() {
         }
         tvTipLabel.text = tipLabel
         val labelColor = ArgbEvaluator().evaluate(
-            tipPercent.toFloat()/seekBarTip.max,
+            tipPercent.toFloat() / seekBarTip.max,
             ContextCompat.getColor(this, R.color.worst_tip),
             ContextCompat.getColor(this, R.color.best_tip)
         ) as Int
         tvTipLabel.setTextColor(labelColor)
     }
-
-
-
 }
